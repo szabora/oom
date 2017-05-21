@@ -23,8 +23,8 @@ namespace Task4
             if (File.Exists(backuppath)) throw new Exception("Datei existiert bereits " + backuppath);
             //in json File schrieben
             File.WriteAllText(backuppath, backupString);
-            Console.WriteLine("Objekte gesichert unter: "+backuppath);
-            Console.ReadKey();
+            //Console.WriteLine("Objekte gesichert unter: "+backuppath);
+            //Console.ReadKey();
         }
         public static IPosten[] restore_stored_json(string name)
         {

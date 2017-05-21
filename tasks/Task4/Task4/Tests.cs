@@ -69,11 +69,10 @@ namespace Task4
             var array_to_test_store_method = new IPosten[]
             {
                 new Konsole("Mega Drive", "Sega", 229),
-                new Game("Pacman", "Atari", 1980, 10),
             };
             JsonBackup.store(array_to_test_store_method,"testdatei");
             var array_to_test_restore_method = JsonBackup.restore_stored_json("testdatei");
-            Assert.IsTrue(array_to_test_store_method.SequenceEqual(array_to_test_restore_method));
+            Assert.IsTrue(array_to_test_store_method[0].BuildString() == array_to_test_restore_method[0].BuildString());
             File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "testdatei.json"));
         }
     }
