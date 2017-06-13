@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -10,48 +11,94 @@ namespace Task6
     {
         public static void Run()
         {
-            var array = ArrayCreator.CreateGemischtesArray();
+            //Array das Objekte beider Klassen enthält
+            var personen = ArrayCreator.CreateGemischtesArray();
 
-            /*var list = new List<Person>()
+
+            //Getrennte Methoden da es mir nicht möglich war ;-)
+            //Methode für Mitarbeiter
+            RunMitarbeiter(personen);
+            Continue();
+
+            //Methode für Kunden
+            RunKunden(personen);
+            Continue();
+        }
+
+        private static void Continue()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue ...");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        private static void RunMitarbeiter(IEnumerable<Person> personen)
+        {
+            Console.WriteLine("Mitarbeiter geboren im Jahr 1970 oder später:");
+
+            var subject = new Subject<Person>();
+            
+           
+            subject.Subscribe(m =>
             {
-                new Mitarbeiter("Sepp", "Zimmer", "22/5/1987", "HR", "Verrechner"),
-                new Mitarbeiter("Juergen", "Freiwild", "12/7/1999", "Lager", "Spediteur"),
-                new Mitarbeiter("Christian", "Sost", "3/7/1960", "Einkauf", "Besteller"),
-                new Mitarbeiter("Thomas", "Planner", "8/3/1950", "Empfang", "Portier"),
-                new Kunde("Herbert", "Huber", "2/12/1988", 2020),
-                new Kunde("Jimmy", "Fallon", "02/5/1999", 1010),
-                new Kunde("Franz", "Fuerst", "30/08/1966", 5454),
-                new Kunde("Georg", "Dundee", "12/9/2000", 3223)
-            };*/
-
-            var source = new Subject<Person>();
-
-            Console.WriteLine("Personen");
-            source.Subscribe(x =>
-            {
-                Console.WriteLine(x.BuildString());
-                Thread.Sleep(250);
-
+                Console.WriteLine();
+                Console.WriteLine(m.BuildString());
+                Thread.Sleep(1000);
             });
 
-            var filter = from x in array
-                where x.Gebturtsdatum.Year >= 1999 && (x.GetType() == typeof(Mitarbeiter))
-                select x;
 
-            foreach (var count in filter)
+            //Mitarbeiter aus Array hereausfiltern mittels Linq
+            var mitarbeiter = personen.Where(person =>
+              {
+
+                  //besser als typeof da im Fehlerfall etwas zurückgeliefert wird
+                  //emp enthält jetzt ausschließlich Mitarbeiter vom Typ Mitarbeiter
+                  var emp = person as Mitarbeiter;
+
+                  //Filter auf Geburtsjahr 1970
+                  return emp != null && emp?.Gebturtsdatum.Year >= 1970;
+              });
+
+            //publishing
+            foreach (var ma in mitarbeiter)
             {
-                array.OnNext(count);
+                
+                subject.OnNext(ma);
             }
 
-            var source2 = array.Where(y => y.GetType() == typeof(Kunde)).ToObservable();
-            Console.WriteLine("Kunden in Array:");
-            source2.Subscribe(y =>
-                {
-                    Console.WriteLine(y.BuildString());
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                }
-            );
-            
+            //dispose aufrufen für unsubscribe und resourcen freigeben 
+            subject.Dispose();
         }
+
+        private static void RunKunden(IEnumerable<Person> personen)
+        {
+            Console.WriteLine("Kunden:");
+
+            var subject = new Subject<Person>();
+
+            //Subscribe kombiniert mit hereausfiltern der Kunden mittels Linq
+            subject.Where(person =>
+            {
+                var ku = person as Kunde;
+
+                return ku != null;
+            }).Subscribe(k =>
+            {
+                Console.WriteLine();
+                Console.WriteLine(k.BuildString());
+                Thread.Sleep(1000);
+            });
+
+            //publishing
+            foreach (var person in personen)
+            {
+                subject.OnNext(person);
+            }
+
+            //dispose aufrufen für unsubscribe und resourcen freigeben 
+            subject.Dispose();
+        }
+
     }
 }

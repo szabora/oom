@@ -12,7 +12,8 @@ namespace Task6
             foreach (var x in kunden) Console.WriteLine($"{x.BuildString()}\n\n");
             foreach (var x in mitarbeiter) Console.WriteLine($"{x.BuildString()}\n\n");
             foreach (var x in gemischt) Console.WriteLine($"{x.BuildString()}\n\n");
-            var showDialog = Prompt.ShowDialog("Test", "123");
+            //var showDialog = Prompt.ShowDialog("Test", "123");
+            Pusher.Run();
         }
     }
 }
