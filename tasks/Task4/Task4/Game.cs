@@ -66,10 +66,12 @@ namespace Task4
             Console.WriteLine("Game\n\nTitel: " + Titel + "\nSystem: " + KSystem + "\nErscheinungsjahr: " + Erscheinungsjahr + "\nPreis: " + Preis + "\n\n");
             Console.ReadKey();
         }
-        public string BuildString()
+        public string BuildString
         {
-            return "Game\nTitel: " + Titel + "\nSystem: " + KSystem+ "\nRelease: " + Erscheinungsjahr + "\nPreis: " + Preis + " Euro";
+            get
+            {
+                return "Game\nTitel: " + Titel + "\nSystem: " + KSystem + "\nRelease: " + Erscheinungsjahr + "\nPreis: " + Preis + " Euro";
+            }
         }
-
     }
 }

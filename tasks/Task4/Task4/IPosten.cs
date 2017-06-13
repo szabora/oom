@@ -9,7 +9,7 @@ namespace Task4
     interface IPosten
     {
         void PrintAll();
-        string BuildString();
+        string BuildString { get; }
 
         /*interface Methode -> bildet Vorlage
          In interfaces kann man keine Felder deklarieren. Für diese Anwendung wird eine abstract Class benötigt.

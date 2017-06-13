@@ -50,7 +50,7 @@ namespace Task4
                         {
                             a.ChangeName(Console.ReadLine());
                             a.PrintAll();
-                            Console.WriteLine(a.BuildString());
+                            Console.WriteLine(a.BuildString);
 
                             break;
                         }

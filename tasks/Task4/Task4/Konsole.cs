@@ -28,9 +28,12 @@ namespace Task4
             Console.WriteLine("Konsole\n\nName:" + name + "\nHersteller: " + hersteller + "\nPreis: " + preis + "\n\n");
             Console.ReadLine();
         }
-        public string BuildString()
+        public string BuildString
         {
-            return "Konsole\nName: " + name + "\nHersteller: " + hersteller + "\nPreis: " + Preis + " Euro";
+            get
+            {
+                return "Konsole\nName: " + name + "\nHersteller: " + hersteller + "\nPreis: " + Preis + " Euro";
+            }
         }
     }
 }

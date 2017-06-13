@@ -55,13 +55,13 @@ namespace Task4
         public void Test_StringBuilder_Game()
         {
             var a = new Game("Titel", "System", 1999, 99);
-            Assert.IsTrue(a.BuildString()== "Game\nTitel: Titel\nSystem: System\nRelease: 1999\nPreis: 99 Euro");
+            Assert.IsTrue(a.BuildString== "Game\nTitel: Titel\nSystem: System\nRelease: 1999\nPreis: 99 Euro");
         }
         [Test]
         public void Test_StringBuilder_Konsole()
         {
             var a = new Konsole("Titel", "System", 99);
-            Assert.IsTrue(a.BuildString() == "Konsole\nName: Titel\nHersteller: System\nPreis: 99 Euro");
+            Assert.IsTrue(a.BuildString== "Konsole\nName: Titel\nHersteller: System\nPreis: 99 Euro");
         }
         [Test]
         public void Test_Json_Backup()
@@ -72,7 +72,7 @@ namespace Task4
             };
             JsonBackup.store(array_to_test_store_method,"testdatei");
             var array_to_test_restore_method = JsonBackup.restore_stored_json("testdatei");
-            Assert.IsTrue(array_to_test_store_method[0].BuildString() == array_to_test_restore_method[0].BuildString());
+            Assert.IsTrue(array_to_test_store_method[0].BuildString== array_to_test_restore_method[0].BuildString);
             File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "testdatei.json"));
         }
     }
