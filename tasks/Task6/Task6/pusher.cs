@@ -17,11 +17,14 @@ namespace Task6
                     prime++;
                     if (prime < 2) continue;
 					if (prime % 2 == 0) continue;
-					  int root = (int)Math.Sqrt((double)prime);
+					  int root = (int)Math.Sqrt(prime);
 					  for (int i = 3; i <= root; i += 2)
 					  {
-						  if (prime % i == 0) continue;
-					  }
+						  if (prime % i == 0)
+                          {
+                              continue;
+                          }
+                      }
                       Console.WriteLine($"[Is Prime]{prime}");
                   }
               }
