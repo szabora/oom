@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Task6
 {
-    public static class Pusher
+    public static class Push
     {
         public static void Run()
         {

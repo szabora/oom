@@ -13,7 +13,9 @@ namespace Task6
             foreach (var x in mitarbeiter) Console.WriteLine($"{x.BuildString()}\n\n");
             foreach (var x in gemischt) Console.WriteLine($"{x.BuildString()}\n\n");
             //var showDialog = Prompt.ShowDialog("Test", "123");
-            Pusher.Run();
+            Push.Run();
+            Pusher.PPusher();
+            taskclass.Tasker();
         }
     }
 }
